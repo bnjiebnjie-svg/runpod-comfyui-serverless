@@ -1,0 +1,498 @@
+{
+  "76": {
+    "inputs": {
+      "image": "bandicam 2026-07-03 01-32-34-606.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Imagen 1 (Base)"
+    }
+  },
+  "81": {
+    "inputs": {
+      "image": "bandicam 2026-07-29 23-59-26-377.jpg"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Imagen 2 (Referencia)"
+    }
+  },
+  "109": {
+    "inputs": {
+      "noise": [
+        "110",
+        0
+      ],
+      "guider": [
+        "123",
+        0
+      ],
+      "sampler": [
+        "125",
+        0
+      ],
+      "sigmas": [
+        "122",
+        0
+      ],
+      "latent_image": [
+        "113",
+        0
+      ]
+    },
+    "class_type": "SamplerCustomAdvanced",
+    "_meta": {
+      "title": "고급 사용자 정의 샘플러"
+    }
+  },
+  "110": {
+    "inputs": {
+      "noise_seed": 432262096973493
+    },
+    "class_type": "RandomNoise",
+    "_meta": {
+      "title": "무작위 노이즈"
+    }
+  },
+  "111": {
+    "inputs": {
+      "vae_name": "flux2-vae.safetensors"
+    },
+    "class_type": "VAELoader",
+    "_meta": {
+      "title": "VAE 로드"
+    }
+  },
+  "112": {
+    "inputs": {
+      "image": [
+        "200",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "이미지 크기 가져오기"
+    }
+  },
+  "113": {
+    "inputs": {
+      "width": [
+        "112",
+        0
+      ],
+      "height": [
+        "112",
+        1
+      ],
+      "batch_size": 1
+    },
+    "class_type": "EmptyFlux2LatentImage",
+    "_meta": {
+      "title": "Empty Flux 2 Latent"
+    }
+  },
+  "117": {
+    "inputs": {
+      "text": "Use Image 1 as the base image. Preserve Image 1's body, clothing, background, lighting, environment, and camera framing. Replace only the head with the person shown in Image 2. Preserve the identity of Image 2 as closely as possible: recognizable facial proportions, eye shape and spacing, nose, lips, skin tone, hairstyle, hair color, hairline, hair volume, and overall head silhouette. Keep the hair attached naturally around the forehead, temples, ears, and neck. Adapt the head pose, gaze, and facial expression to the requested pose and expression below rather than copying Image 1's original head angle. Requested head pose: [POSE: e.g. three-quarter view facing left]. Requested expression: [EXPRESSION: e.g. subtle natural smile, relaxed eyes]. Photorealistic skin texture, natural individual hair strands, consistent perspective and lighting, clean hairline, seamless neck transition. Do not change the person's identity or hairstyle unnecessarily.",
+      "clip": [
+        "195",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode (Positive Prompt)"
+    }
+  },
+  "119": {
+    "inputs": {
+      "text": "",
+      "clip": [
+        "195",
+        0
+      ]
+    },
+    "class_type": "CLIPTextEncode",
+    "_meta": {
+      "title": "CLIP Text Encode ( Negative Prompt)"
+    }
+  },
+  "121": {
+    "inputs": {
+      "resize_type": "scale longer dimension",
+      "resize_type.longer_size": 768,
+      "scale_method": "lanczos",
+      "input": [
+        "187",
+        0
+      ]
+    },
+    "class_type": "ResizeImageMaskNode",
+    "_meta": {
+      "title": "Resize Image/Mask 2"
+    }
+  },
+  "122": {
+    "inputs": {
+      "steps": 8,
+      "width": [
+        "112",
+        0
+      ],
+      "height": [
+        "112",
+        1
+      ]
+    },
+    "class_type": "Flux2Scheduler",
+    "_meta": {
+      "title": "Flux2Scheduler"
+    }
+  },
+  "123": {
+    "inputs": {
+      "cfg": 1,
+      "model": [
+        "133",
+        0
+      ],
+      "positive": [
+        "114:77",
+        0
+      ],
+      "negative": [
+        "114:190",
+        0
+      ]
+    },
+    "class_type": "CFGGuider",
+    "_meta": {
+      "title": "CFG 가이드"
+    }
+  },
+  "125": {
+    "inputs": {
+      "sampler_name": "euler"
+    },
+    "class_type": "KSamplerSelect",
+    "_meta": {
+      "title": "KSampler (선택)"
+    }
+  },
+  "131": {
+    "inputs": {
+      "samples": [
+        "109",
+        0
+      ],
+      "vae": [
+        "111",
+        0
+      ]
+    },
+    "class_type": "VAEDecode",
+    "_meta": {
+      "title": "VAE 디코드"
+    }
+  },
+  "133": {
+    "inputs": {
+      "lora_name": "bfs_head_v1_flux-klein_4b.safetensors",
+      "strength_model": 1,
+      "model": [
+        "194",
+        0
+      ]
+    },
+    "class_type": "LoraLoaderModelOnly",
+    "_meta": {
+      "title": "LoRA 로드 (모델 전용)"
+    }
+  },
+  "163": {
+    "inputs": {
+      "filename_prefix": "HeadSwap_IdentityImproved",
+      "images": [
+        "202",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "이미지 저장"
+    }
+  },
+  "176": {
+    "inputs": {
+      "direction": "down",
+      "match_image_size": true,
+      "image1": [
+        "200",
+        0
+      ],
+      "image2": [
+        "121",
+        0
+      ]
+    },
+    "class_type": "ImageConcanate",
+    "_meta": {
+      "title": "ImageConcanate"
+    }
+  },
+  "177": {
+    "inputs": {
+      "direction": "right",
+      "match_image_size": true,
+      "image1": [
+        "176",
+        0
+      ],
+      "image2": [
+        "131",
+        0
+      ]
+    },
+    "class_type": "ImageConcanate",
+    "_meta": {
+      "title": "ImageConcanate"
+    }
+  },
+  "178": {
+    "inputs": {
+      "images": [
+        "177",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "이미지 미리보기"
+    }
+  },
+  "187": {
+    "inputs": {
+      "model": "BEN2",
+      "sensitivity": 1,
+      "process_res": 1024,
+      "mask_blur": 2,
+      "mask_offset": 0,
+      "invert_output": false,
+      "refine_foreground": false,
+      "unload_model": "Alpha",
+      "background": "Alpha",
+      "background_color": "#222222",
+      "image": [
+        "81",
+        0
+      ]
+    },
+    "class_type": "RMBG",
+    "_meta": {
+      "title": "배경 제거 (RMBG)"
+    }
+  },
+  "194": {
+    "inputs": {
+      "unet_name": "flux-2-klein-4b-Q4_K_M.gguf"
+    },
+    "class_type": "UnetLoaderGGUF",
+    "_meta": {
+      "title": "Unet Loader (GGUF)"
+    }
+  },
+  "195": {
+    "inputs": {
+      "clip_name": "qwen3-4b-q4_k_m.gguf",
+      "type": "flux2"
+    },
+    "class_type": "CLIPLoaderGGUF",
+    "_meta": {
+      "title": "CLIPLoader (GGUF)"
+    }
+  },
+  "197": {
+    "inputs": {
+      "Blend Mode": "normal",
+      "compare_controls": "",
+      "image_a": [
+        "76",
+        0
+      ],
+      "image_b": [
+        "131",
+        0
+      ]
+    },
+    "class_type": "EsesImageCompare",
+    "_meta": {
+      "title": "Eses Image Compare"
+    }
+  },
+  "200": {
+    "inputs": {
+      "width": 864,
+      "height": 864,
+      "interpolation": "lanczos",
+      "method": "keep proportion",
+      "condition": "always",
+      "multiple_of": 16,
+      "image": [
+        "76",
+        0
+      ]
+    },
+    "class_type": "ImageResize+",
+    "_meta": {
+      "title": "🔧 Image Resize 1"
+    }
+  },
+  "201": {
+    "inputs": {
+      "images": [
+        "187",
+        2
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Mask"
+    }
+  },
+  "202": {
+    "inputs": {
+      "enabled": true,
+      "swap_model": "inswapper_128.onnx",
+      "facedetection": "YOLOv5l",
+      "face_restore_model": "none",
+      "face_restore_visibility": 1,
+      "codeformer_weight": 0.7,
+      "detect_gender_input": "no",
+      "detect_gender_source": "no",
+      "input_faces_index": "0",
+      "source_faces_index": "0",
+      "console_log_level": 1,
+      "input_image": [
+        "131",
+        0
+      ],
+      "source_image": [
+        "81",
+        0
+      ]
+    },
+    "class_type": "ReActorFaceSwap",
+    "_meta": {
+      "title": "ReActor - Face Identity Pass"
+    }
+  },
+  "203": {
+    "inputs": {
+      "images": [
+        "202",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Final ReActor Preview"
+    }
+  },
+  "116:191": {
+    "inputs": {
+      "conditioning": [
+        "119",
+        0
+      ],
+      "latent": [
+        "116:192",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "참조 잠재"
+    }
+  },
+  "116:192": {
+    "inputs": {
+      "pixels": [
+        "200",
+        0
+      ],
+      "vae": [
+        "111",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE 인코드"
+    }
+  },
+  "116:193": {
+    "inputs": {
+      "conditioning": [
+        "117",
+        0
+      ],
+      "latent": [
+        "116:192",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "참조 잠재"
+    }
+  },
+  "114:190": {
+    "inputs": {
+      "conditioning": [
+        "116:191",
+        0
+      ],
+      "latent": [
+        "114:78",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "참조 잠재"
+    }
+  },
+  "114:78": {
+    "inputs": {
+      "pixels": [
+        "121",
+        0
+      ],
+      "vae": [
+        "111",
+        0
+      ]
+    },
+    "class_type": "VAEEncode",
+    "_meta": {
+      "title": "VAE 인코드"
+    }
+  },
+  "114:77": {
+    "inputs": {
+      "conditioning": [
+        "116:193",
+        0
+      ],
+      "latent": [
+        "114:78",
+        0
+      ]
+    },
+    "class_type": "ReferenceLatent",
+    "_meta": {
+      "title": "참조 잠재"
+    }
+  }
+}

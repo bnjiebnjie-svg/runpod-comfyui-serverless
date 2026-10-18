@@ -1,0 +1,19 @@
+# 1. 공식 RunPod ComfyUI 서버리스 기본 이미지 사용
+FROM runpod/worker-comfyui:base-v1.0.0
+
+# 2. 작업 디렉토리를 ComfyUI 경로로 지정
+WORKDIR /workspace/ComfyUI
+
+# 3. ReActor 노드 실행에 필수적인 파이썬 라이브러리(insightface, onnxruntime-gpu) 설치
+RUN pip install --no-cache-dir insightface onnxruntime-gpu
+
+# 4. 커스텀 노드들이 위치할 디렉토리로 이동 후 필요한 노드들 클론(다운로드)
+WORKDIR /workspace/ComfyUI/custom_nodes
+
+RUN git clone https://github.com/city96/ComfyUI-GGUF.git && \
+    git clone https://github.com/Gourieff/ComfyUI-ReActor-Node.git && \
+    git clone https://github.com/Jordach/ComfyUI-RMBG.git && \
+    git clone https://github.com/yolain/ComfyUI-Easy-Use.git
+
+# 5. 작업 디렉토리를 다시 최상위(/workspace)로 복귀
+WORKDIR /workspace
